@@ -2,16 +2,16 @@
   <div class="login">
     <div class="login_center">
       <h1 class="title">{{title}}</h1>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="Form" label-width="100px" class="demo-ruleForm">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="Form" class="formStyle" label-position="top">
         <el-form-item label="用户名" prop="userName">
           <el-input type="text" v-model="ruleForm.userName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm()">提交</el-button>
-          <el-button @click="resetForm()">重置</el-button>
+        <el-form-item class="btn_wamp_submit">
+          <el-button type="primary" round @click="submitForm()">提交</el-button>
+          <el-button type="default" round @click="resetForm()">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -69,7 +69,6 @@ export default {
             type: 'success'
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -80,17 +79,30 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   .login{
     width: 100%;
     height: 100%;
-    background: #000;
+    background: #409EFF;
     position: relative;
+    .title{
+      text-align: center;
+      color: #fff;
+    }
     .login_center{
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -70%);
+    }
+    .formStyle{
+      width: 400px;
+    }
+    .el-form-item__label{
+      color: #fff !important;
+    }
+    .btn_wamp_submit{
+      padding-top: 15px;
     }
   }
 </style>
