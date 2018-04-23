@@ -19,6 +19,7 @@
 </template>
 <script>
 import {trim} from 'assets/js/utils'
+import {login} from 'api/index'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -63,10 +64,14 @@ export default {
       const _this = this
       _this.$refs.Form.validate((valid) => {
         if (valid) {
-          _this.$message({
-            showClose: true,
-            message: '登录成功',
-            type: 'success'
+          login().then((result) => {
+            _this.$message({
+              showClose: true,
+              message: '登录成功',
+              type: 'success'
+            })
+          }).catch((err) => {
+            console.log(err)
           })
         } else {
           return false
