@@ -1,0 +1,40 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "_cookie-parser@1.4.3@cookie-parser": "^1.4.3",
+    "_cookie-signature@1.0.6@cookie-signature": "^1.0.6",
+    "_cookie@0.3.1@cookie": "^0.3.1",
+    "_crc@3.4.4@crc": "^3.4.4",
+    "_debug@2.6.9@debug": "^2.6.9",
+    "_depd@1.1.2@depd": "^1.1.2",
+    "_express-session@1.15.6@express-session": "^1.15.6",
+    "_ms@2.0.0@ms": "^2.0.0",
+    "_on-headers@1.0.1@on-headers": "^1.0.1",
+    "_parseurl@1.3.2@parseurl": "^1.3.2",
+    "_random-bytes@1.0.0@random-bytes": "^1.0.0",
+    "_uid-safe@2.1.5@uid-safe": "^2.1.5",
+    "_utils-merge@1.0.1@utils-merge": "^1.0.1",
+    "body-parser": "^1.18.2",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-signature": "^1.0.6",
+    "crc": "^3.4.4",
+    "debug": "^2.6.9",
+    "depd": "^1.1.2",
+    "express-session": "^1.15.6",
+    "ms": "^2.0.0",
+    "on-headers": "^1.0.1",
+    "parseurl": "^1.3.2",
+    "random-bytes": "^1.0.0",
+    "uid-safe": "^2.1.5",
+    "utils-merge": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liutaochange@163.com",
+  "license": "ISC"
+}

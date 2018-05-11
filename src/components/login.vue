@@ -63,8 +63,10 @@ export default {
     submitForm () {
       const _this = this
       _this.$refs.Form.validate((valid) => {
+        console.log(valid)
         if (valid) {
-          login().then((result) => {
+          login(_this.ruleForm.userName, _this.ruleForm.pass).then((result) => {
+            console.log(result)
             _this.$message({
               showClose: true,
               message: '登录成功',
@@ -88,7 +90,7 @@ export default {
   .login{
     width: 100%;
     height: 100%;
-    background: #409EFF;
+    background: #3A8CB6;
     position: relative;
     .title{
       text-align: center;
