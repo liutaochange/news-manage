@@ -19,7 +19,9 @@
 </template>
 <script>
 import {trim} from 'assets/js/utils'
+import {setItem} from 'assets/js/store'
 import {login} from 'api/index'
+import {config} from 'api/config'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -67,11 +69,21 @@ export default {
         if (valid) {
           login(_this.ruleForm.userName, _this.ruleForm.pass).then((result) => {
             console.log(result)
-            _this.$message({
-              showClose: true,
-              message: '登录成功',
-              type: 'success'
-            })
+            if (result.data.code === 0) {
+              _this.$message({
+                showClose: true,
+                message: '登录成功',
+                type: 'success'
+              })
+              setItem(config.userToken, result.data.token)
+              _this.$router.push({ name: 'index' })
+            } else if (result.data.code === 1) {
+              _this.$message({
+                showClose: true,
+                message: result.data.msg,
+                type: 'error'
+              })
+            }
           }).catch((err) => {
             console.log(err)
           })
