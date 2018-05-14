@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/views/index'
+import Main from '@/views/main'
 import login from '@/components/login'
+import Checkuser from '@/base/checkUser/checkUser'
+import GetUserList from '@/base/userList/userList'
 import {config} from 'api/config'
 import {getItem} from 'assets/js/store'
 Vue.use(Router)
@@ -15,7 +18,25 @@ const router = new Router({
     {
       path: '/index',
       name: 'index',
-      component: index
+      component: index,
+      redirect: '/index/main',
+      children: [
+        {
+          path: 'main',
+          name: 'main',
+          component: Main
+        },
+        {
+          path: 'checkuser',
+          name: 'checkuser',
+          component: Checkuser
+        },
+        {
+          path: 'userlist',
+          name: 'userlist',
+          component: GetUserList
+        }
+      ]
     },
     {
       path: '/login',

@@ -12,7 +12,21 @@ const UserSchema = new Schema({
   },
   token: {
     type: String
+  },
+  permission: {
+    type: String
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
+  },
+  updateTime: {
+    type: Date,
+    default: Date.now
   }
+},{
+  versionKey: false,
+  timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 })
 const userModel = mongoose.model('users', UserSchema)
 // // 增加一条数据

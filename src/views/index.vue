@@ -9,14 +9,15 @@
                  :collapse="isCollapse"
                  text-color="#fff"
                  active-text-color="#fff"
-                 :unique-opened="true">
+                 :unique-opened="true"
+                  :router="true">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span slot="title">用户管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">用户列表</el-menu-item>
+              <el-menu-item index="userlist">用户列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="2">
@@ -54,20 +55,23 @@
           <div class="left_header">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <!--<el-breadcrumb-item ></el-breadcrumb-item>-->
             </el-breadcrumb>
           </div>
-          <!--<div class="right_header">-->
-            <!--<div class="pull-left image">-->
-              <!--<img src="../assets/images/26115.jpg" class="img-circle" alt="User Image">-->
-            <!--</div>-->
-            <!--<div class="pull-left info">-->
-
-            <!--</div>-->
-          <!--</div>-->
+          <div class="right_header">
+            <el-dropdown @command="handleCommand">
+              <div class="pull-left image">
+                <img src="../assets/images/26115.jpg" class="img-circle" alt="User Image">
+                <span>{{username}}</span>
+              </div>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="check">查看</el-dropdown-item>
+                <el-dropdown-item command="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
         </el-header>
         <el-main>
-          <main-index></main-index>
+          <router-view></router-view>
         </el-main>
         <el-footer>copyright @2018</el-footer>
       </el-container>
@@ -75,11 +79,13 @@
   </div>
 </template>
 <script>
-import mainIndex from 'views/main'
+import {removeItem} from 'assets/js/store'
+import {config} from 'api/config'
 export default{
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      username: 'admin'
     }
   },
   methods: {
@@ -88,10 +94,15 @@ export default{
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
+    },
+    handleCommand (command) {
+      if (command === 'check') {
+        this.$router.push({ name: 'checkuser' })
+      } else if (command === 'logout') {
+        removeItem(config.userToken)
+        this.$router.push({ name: 'login' })
+      }
     }
-  },
-  components: {
-    mainIndex
   }
 }
 </script>
@@ -124,6 +135,19 @@ export default{
         .el-breadcrumb{
           height: 60px;
           line-height: 60px;
+        }
+      }
+      .right_header{
+        float: right;
+        height: 60px;
+        line-height: 60px;
+        .img-circle{
+          display: inline-block;
+          vertical-align: middle;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
         }
       }
     }
