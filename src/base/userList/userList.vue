@@ -3,7 +3,7 @@
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row style="width: 100%">
       <el-table-column align="center" label='ID'>
         <template slot-scope="scope">
-          {{scope.$index}}
+          {{scope.$index + 1}}
         </template>
       </el-table-column>
       <el-table-column label="用户名">
@@ -27,8 +27,8 @@
       @current-change="handleCurrentChange"
       :current-page="currentPage"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
+      :page-size="pageSize"
+      layout="sizes, prev, pager, next, jumper"
       :total="totalPage">
     </el-pagination>
   </div>
@@ -43,8 +43,8 @@ export default {
       list: [],
       listLoading: true,
       currentPage: 1,
-      pagesize: 20,
-      totalPage: ''
+      pageSize: 20,
+      totalPage: 0
     }
   },
   created () {
@@ -54,6 +54,14 @@ export default {
     _getUserList () {
       getUserList(this.currentPage, this.pagesize).then((res) => {
         console.log(res)
+        if (res.data.code === 0) {
+          this.list = res.data.list
+          this.listLoading = false
+          const pager = res.data.page
+          this.currentPage = Number(pager.currentPage)
+          this.pageSize = Number(pager.pageSize)
+          this.totalPage = Number(pager.totalPage)
+        }
       })
     },
     handleSizeChange (size) {

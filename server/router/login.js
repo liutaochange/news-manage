@@ -113,11 +113,9 @@ exports.getUserList = (req, res) => {
         msg: '暂无数据'
       })
     } else {
-      console.log(getData)
-      console.log(getData.size * (getData.page - 1));
-      userMode.find({}, ['name', 'permission', 'createTime'], {limit: getData.size}, {skip: getData.size * (getData.page - 1)}, function (error, adventure) {
+      userMode.find({}, {'name': 1, 'permission': 1, 'createTime': 1, '_id': 0}).limit(Number(getData.size)).skip(Number(getData.size * (getData.page - 1))).exec((error, adventure) => {
         if (error) {
-          console.error(error);
+          console.error(error)
         } else {
           if (!adventure) {
             res.send({
@@ -133,7 +131,7 @@ exports.getUserList = (req, res) => {
               page: {
                 currentPage: getData.page,
                 pageSize: getData.size,
-                totalPage: (Math.ceil(count/getData.size)).toFixed(0)
+                totalPage: (Math.ceil(count / getData.size)).toFixed(0)
               }
             })
           }
