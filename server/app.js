@@ -22,7 +22,6 @@ app.listen(4000)
 
 
 
-
 // app.use(express.static('../dist'))
 // app.use('/', (req, res) => {
 //   res.send('../dist/index.html')
