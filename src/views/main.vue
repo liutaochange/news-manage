@@ -20,12 +20,12 @@
           </div>
         </div>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="discounts.isSelected">
         <div class="item-node">
           <el-checkbox v-model="form.discounts.isSelected" @change="handleAllChange">每月优惠券</el-checkbox>
           <el-checkbox-group v-model="form.discounts.selectItem" @change="handleCheckedChange">
               <div class="text-indent" v-for="(item, index) in form.discounts.select" :key="item.alias">
-                <el-form-item :prop="getProps(index)">
+                <el-form-item :prop="getProps(index)" :rules="{required: getRules(index), message: '不能为空', trigger: 'blur'}">
                   <el-checkbox :label="item.alias">{{item.name}}
                     <el-input v-model="item.count" placeholder="请输入张数"></el-input>
                     <div class="text">张</div>
@@ -66,23 +66,11 @@ export default {
         callback()
       }
     }
-    var validateDisCount = (rule, value, callback) => {
-      console.log(rule.field)
-      let str = rule.field.split('[')
-      let getIndex = str[1].substr(0, 1)
-      console.log(getIndex)
-      let getSelectInfo = this.form.discounts.select[getIndex].alias
-      console.log(getSelectInfo)
-      let selectItem = this.from.discounts.selectItem
-      console.log(selectItem)
-      let selectItemSize = this.from.discounts.selectItem.length
-      console.log(selectItemSize)
-      if (selectItemSize > 0) {
-        if (selectItem.includes(getSelectInfo)) {
-          if (value === '') {
-            console.log('error')
-            callback(new Error('请输入优惠券张数'))
-          }
+    var validateDisSelect = (rule, value, callback) => {
+      let selectItem = this.form.discounts.selectItem
+      if (value) {
+        if (selectItem.length === 0) {
+          callback(new Error('请选择优惠券类型'))
         } else {
           callback()
         }
@@ -130,16 +118,26 @@ export default {
       formRule: {
         'registration.integral': [{ validator: validateIntegral, trigger: 'blur' }],
         'birthdayGift.count': [{ validator: validateCount, trigger: 'blur' }],
-        'discounts.select[0].count': [{ validator: validateDisCount, trigger: 'blur' }],
-        'discounts.select[1].count': [{ validator: validateDisCount, trigger: 'blur' }],
-        'discounts.select[2].count': [{ validator: validateDisCount, trigger: 'blur' }],
-        'discounts.select[3].count': [{ validator: validateDisCount, trigger: 'blur' }]
+        'discounts.isSelected': [{ validator: validateDisSelect, trigger: 'blur' }]
       }
     }
   },
   methods: {
     getProps (index) {
       return `discounts.select.${index}.count`
+    },
+    getRules (index) {
+      const self = this
+      if (self.form.discounts.isSelected) {
+        let getAlias = self.form.discounts.select[index].alias
+        if (self.form.discounts.selectItem.includes(getAlias)) {
+          return true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
     },
     handleAllChange (value) {
       if (!value) {
