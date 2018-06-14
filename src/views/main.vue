@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     getProps (index) {
-      return `discounts.select[${index}].count`
+      return `discounts.select.${index}.count`
     },
     handleAllChange (value) {
       if (!value) {
