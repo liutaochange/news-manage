@@ -35,6 +35,15 @@
           </el-checkbox-group>
         </div>
       </el-form-item>
+      <el-form-item
+        label="年龄"
+        prop="age"
+        :rules="[
+          { required: true, message: '年龄不能为空'},
+          { type: 'number', message: '年龄必须为数字值'}
+        ]">
+        <el-input v-model="form.require" placeholder="必填项"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>
       </el-form-item>
@@ -113,7 +122,8 @@ export default {
             }
           ],
           selectItem: []
-        }
+        },
+        require: ''
       },
       formRule: {
         'registration.integral': [{ validator: validateIntegral, trigger: 'blur' }],
