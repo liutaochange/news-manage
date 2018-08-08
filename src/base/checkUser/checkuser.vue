@@ -4,8 +4,8 @@
       <el-form-item label="用户名">
         <el-input v-model="form.name" readonly="true"></el-input>
       </el-form-item>
-      <el-form-item label="用户密码">
-        <el-input v-model="form.pass" readonly="true"></el-input>
+      <el-form-item label="创建时间">
+        <el-input v-model="form.createTime" readonly="true"></el-input>
       </el-form-item>
       <el-form-item label="用户权限">
         <el-input v-model="form.permion" readonly="true"></el-input>
@@ -28,7 +28,7 @@ export default {
     return {
       form: {
         name: '',
-        pass: '',
+        createTime: '',
         permion: ''
       }
     }
@@ -47,7 +47,7 @@ export default {
           this.$router.push({ name: 'login' })
         } else if (res.data.code === 0) {
           this.form.name = res.data.name
-          this.form.pass = res.data.pass
+          this.form.createTime = res.data.createTime
           this.form.permion = res.data.permion
         }
       })

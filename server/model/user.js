@@ -1,5 +1,6 @@
 const mongoose = require('../utils/mongodb')
 const Schema = mongoose.Schema
+const moment = require('moment')
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -18,47 +19,15 @@ const UserSchema = new Schema({
   },
   createTime: {
     type: Date,
-    default: Date.now
+    default: moment()
   },
   updateTime: {
     type: Date,
-    default: Date.now
+    default: moment()
   }
 },{
   versionKey: false,
   timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 })
 const userModel = mongoose.model('users', UserSchema)
-// // 增加一条数据
-// userMode.create(query, function (error, jellybean, snickers) {
-//   if (error) {
-//     console.error(error)
-//   } else {
-//     return true
-//   }
-// })
-// // 单条数据查询
-// userMode.findOne(query, function (error, adventure) {
-//   if (error) {
-//     console.error(error)
-//   } else {
-//     console.log(adventure)
-//   }
-// })
-// // 删除一条数据
-// userMode.deleteOne(query, function (error) {
-//   if (error) {
-//     console.error(error)
-//   } else {
-//     return true
-//   }
-// })
-// // 修改一条数据
-// Model.update(query, newItem, function (error) {
-//   if (error) {
-//     console.error(error)
-//   } else {
-//     return true
-//   }
-// })
 module.exports = userModel

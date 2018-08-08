@@ -2,6 +2,7 @@ const userMode = require('../model/user')
 const jwt = require('jsonwebtoken')
 const querystring = require('querystring')
 const config = require('../utils/config') // 全局配置
+const moment = require('moment')
 exports.login = (req, res) => {
   const userName = req.body.user
   const password = req.body.password
@@ -93,7 +94,7 @@ exports.checkUser = (req, res) => {
             code: 0,
             msg: '校验成功',
             name: adventure.name,
-            pass: adventure.password,
+            createTime: moment(adventure.createTime).format('YYYY-MM-DD HH:mm:ss'),
             permion: adventure.permission
           })
         }
