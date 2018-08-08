@@ -3,10 +3,8 @@ const jwt = require('jsonwebtoken')
 const querystring = require('querystring')
 const config = require('../utils/config') // 全局配置
 exports.login = (req, res) => {
-  const parmas = req.url.split('?')[1]
-  const getData = querystring.parse(parmas)
-  const userName = getData.user
-  const password = getData.password
+  const userName = req.body.user
+  const password = req.body.password
   if (userName === '') {
     res.send({
       'code': 1,

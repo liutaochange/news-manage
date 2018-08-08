@@ -9,8 +9,12 @@ const request = axios.create({
 })
 // 登录
 export const login = (user, pass) => {
-  const url = `/api/login?user=${user}&password=${pass}`
-  return request.post(url)
+  const url = '/api/login'
+  const data = Object.assign({}, {
+    user: user,
+    password: pass
+  })
+  return request.post(url, data)
 }
 // 查看用户信息
 export const checkUser = (token) => {

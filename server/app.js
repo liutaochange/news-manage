@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
 const routers = require('./router/index')
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.json())  
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', true)
   res.header('Access-Control-Allow-Origin', 'http://localhost:2233')
-  res.header('Access-Control-Allow-Headers', 'userToken')
+  res.header('Access-Control-Allow-Headers', 'content-type,userToken')
+  res.header("Access-Control-Expose-Headers", "*");
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
   res.header('X-Powered-By', ' 3.2.1')
   res.header('Content-Type', 'application/json;charset=utf-8')
